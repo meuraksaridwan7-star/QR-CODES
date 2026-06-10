@@ -51,7 +51,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
                         </svg>
                         <p id="txt-drag" class="text-sm font-medium text-slate-300 mb-1">Klik atau seret file ke sini</p>
-                        <p id="txt-max-size-info" class="text-xs text-slate-500 font-mono">File Maksimal 5 TB</p>
+                        <p id="txt-max-size-info" class="text-xs text-slate-500 font-mono">File Maksimal 400 MB</p>
                     </div>
                     
                     <div id="uploadProgress" class="hidden mt-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/60">
@@ -117,14 +117,14 @@
                 placeholder: "QR Code akan muncul secara otomatis setelah file diunggah atau URL dimasukkan.",
                 delete: "Hapus",
                 uploading: "Mengunggah file ke cloud...",
-                limitExceeded: "File melebihi batas maksimal 5 TB!",
+                limitExceeded: "File melebihi batas maksimal 400 MB!",
                 invalidType: "Format file tidak didukung! Periksa daftar format yang diizinkan di atas.",
-                errorUpload: "Gagal memproses file. Catatan: Server cloud gratis membatasi upload langsung maksimal 1 GB. Gunakan kotak URL di bawah jika file berukuran besar.",
+                errorUpload: "Gagal memproses file. Catatan: Pastikan ukuran file tidak melebihi 400 MB atau gunakan kotak URL di bawah jika file berukuran besar.",
                 urlTitle: "Input URL / Web Host",
                 urlDesc: "Hanya mendukung tautan dari GitHub (github.com atau raw.githubusercontent.com).",
                 linkLabelFile: "Direct Download Link:",
                 linkLabelUrl: "Tautan Web Terdeteksi:",
-                maxSizeInfo: "File Maksimal 5 TB",
+                maxSizeInfo: "File Maksimal 400 MB",
                 invalidGithub: "Tautan ditolak! Hanya URL dari GitHub yang diizinkan."
             },
             en: {
@@ -134,31 +134,31 @@
                 placeholder: "QR Code will appear automatically once a file is uploaded or a URL is entered.",
                 delete: "Delete",
                 uploading: "Uploading file to cloud...",
-                limitExceeded: "File size exceeds the 5 TB maximum limit!",
+                limitExceeded: "File size exceeds the 400 MB maximum limit!",
                 invalidType: "Unsupported file format! Please check the allowed list above.",
-                errorUpload: "Failed to process file. Note: Free cloud servers limit direct uploads to 1 GB. Use the URL box below for larger files.",
+                errorUpload: "Failed to process file. Note: Ensure file size does not exceed 400 MB or use the URL box below for larger files.",
                 urlTitle: "Input URL / Web Host",
                 urlDesc: "Only supports GitHub links (github.com or raw.githubusercontent.com).",
                 linkLabelFile: "Direct Download Link:",
                 linkLabelUrl: "Detected Web Link:",
-                maxSizeInfo: "Max File Size 5 TB",
+                maxSizeInfo: "Max File Size 400 MB",
                 invalidGithub: "Link rejected! Only GitHub URLs are allowed."
             },
             de: {
                 title: "Von überall scannen",
-                subtitle: "Dateien werden automatisch in einer verschlüsselten öffentlichen Cloud verarbeitet. Der QR-Code kann von jedem im Internet gescannt werden.",
+                subtitle: "Dateien werden automatisch in einer wissenschaftlich verschlüsselten Cloud verarbeitet. Der QR-Code kann von jedem im Internet gescannt werden.",
                 drag: "Klicken oder Datei hierher ziehen",
                 placeholder: "Der QR-Code wird automatisch angezeigt, sobald eine Datei hochgeladen oder eine URL eingegeben wird.",
                 delete: "Löschen",
                 uploading: "Datei wird in die Cloud hochgeladen...",
-                limitExceeded: "Dateigröße überschreitet das maximale Limit von 5 TB!",
+                limitExceeded: "Dateigröße überschreitet das maximale Limit von 400 MB!",
                 invalidType: "Nicht unterstütztes Dateiformat! Bitte überprüfen Sie die obige Liste.",
-                errorUpload: "Datei konnte nicht verarbeitet werden. Hinweis: Kostenlose Cloud-Server beschränken den direkten Upload auf 1 GB. Nutzen Sie bei großen Dateien das URL-Feld unten.",
+                errorUpload: "Datei konnte nicht verarbeitet werden. Hinweis: Stellen Sie sicher, dass die Datei 400 MB nicht überschreitet, oder nutzen Sie das URL-Feld unten.",
                 urlTitle: "URL / Web-Host eingeben",
                 urlDesc: "Unterstützt nur GitHub-Links (github.com oder raw.githubusercontent.com).",
                 linkLabelFile: "Direkter Download-Link:",
                 linkLabelUrl: "Erkannter Web-Link:",
-                maxSizeInfo: "Maximale Dateigröße 5 TB",
+                maxSizeInfo: "Maximale Dateigröße 400 MB",
                 invalidGithub: "Link abgelehnt! Nur GitHub-URLs sind erlaubt."
             },
             ja: {
@@ -168,21 +168,22 @@
                 placeholder: "ファイルがアップロードされるか、URLが入力されると、QRコードが自動的に表示されます。",
                 delete: "削除",
                 uploading: "クラウドにファイルをアップロード中...",
-                limitExceeded: "ファイルが5 TBの制限を超えています！",
+                limitExceeded: "ファイルが400 MBの制限を超えています！",
                 invalidType: "サポートされていないファイル形式です！上の許可リストを確認してください。",
-                errorUpload: "ファイルの処理に失敗しました。注意：無料クラウドサーバーの直接アップロード制限 is 1GB。大容量ファイルの場合は下のURLボックスを使用してください。",
+                errorUpload: "ファイルの処理に失敗しました。注意：ファイルが400 MBを超えていないか確認するか、大容量ファイルの場合は下のURLボックスを使用してください。",
                 urlTitle: "URL / ウェブホスト入力",
                 urlDesc: "GitHubリンクのみをサポートします（github.comまたはraw.githubusercontent.com）。",
                 linkLabelFile: "直接ダウンロードリンク:",
                 linkLabelUrl: "検出されたウェブリンク:",
-                maxSizeInfo: "最大ファイルサイズ 5 TB",
+                maxSizeInfo: "最大ファイルサイズ 400 MB",
                 invalidGithub: "リンクが拒否されました！GitHubのURLのみが許可されています。"
             }
         };
 
         let currentLang = 'id';
         
-        const MAX_SIZE = 5 * 1024 * 1024 * 1024 * 1024; 
+        // Mengubah Batas Ukuran Maksimal ke 400 MB (400 * 1024 * 1024 Byte)
+        const MAX_SIZE = 400 * 1024 * 1024; 
         const ALLOWED_EXT = ['jpeg', 'jpg', 'mkv', 'mp3', 'mp4', 'pdf', 'docx', 'pptx', 'xlsx', 'xls', 'zip', 'exe', 'rar', 'ino', 'apk'];
 
         const dropzone = document.getElementById('dropzone');
@@ -239,12 +240,8 @@
 
             urlInput.value = ""; 
 
-            let sizeString = "";
-            if (file.size >= 1024 * 1024 * 1024 * 1024) {
-                sizeString = (file.size / (1024 * 1024 * 1024 * 1024)).toFixed(2) + " TB";
-            } else {
-                sizeString = (file.size / (1024 * 1024)).toFixed(2) + " MB";
-            }
+            // Format penulisan info ukuran file ke MB
+            let sizeString = (file.size / (1024 * 1024)).toFixed(2) + " MB";
 
             fileName.innerText = file.name;
             fileSize.innerText = sizeString;
@@ -298,7 +295,6 @@
                 return;
             }
 
-            // Validasi format URL untuk memastikan hanya menerima domain github.com atau raw.githubusercontent.com
             try {
                 const parsedUrl = new URL(cleanUrl);
                 const hostname = parsedUrl.hostname.toLowerCase();
@@ -310,7 +306,6 @@
                     return;
                 }
             } catch (e) {
-                // Jika input bukan format URL yang valid (misal baru mengetik setengah jalan), diamkan dulu sampai valid
                 return;
             }
 
