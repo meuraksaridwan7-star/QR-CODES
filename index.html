@@ -81,7 +81,7 @@
                         <h3 id="txt-url-title" class="text-sm font-semibold text-slate-200">Input URL / Web Host</h3>
                     </div>
                     <input type="url" id="urlInput" oninput="handleUrlInput(this.value)" placeholder="https://example.com/share-link" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-cyan-400 placeholder-slate-600 focus:outline-none focus:border-cyan-500 font-mono transition-all">
-                    <p id="txt-url-desc" class="text-xs text-slate-500 mt-2 leading-relaxed">Mendukung semua tautan website, Google Drive, OneDrive, github, IP publik, dll.</p>
+                    <p id="txt-url-desc" class="text-xs text-slate-500 mt-2 leading-relaxed">Mendukung semua tautan website, Google Drive, OneDrive, GitHub, IP publik, dll.</p>
                 </div>
 
             </div>
@@ -121,7 +121,7 @@
                 invalidType: "Format file tidak didukung! Periksa daftar format yang diizinkan di atas.",
                 errorUpload: "Gagal memproses file. Catatan: Server cloud gratis membatasi upload langsung maksimal 400 MB. Gunakan kotak URL di bawah jika file berukuran besar.",
                 urlTitle: "Input URL / Web Host",
-                urlDesc: "Mendukung semua tautan website, Google Drive, OneDrive, github, IP publik, dll.",
+                urlDesc: "Mendukung semua tautan website, Google Drive, OneDrive, GitHub, IP publik, dll.",
                 linkLabelFile: "Direct Download Link:",
                 linkLabelUrl: "Tautan Web Terdeteksi:",
                 maxSizeInfo: "File Maksimal 400 MB"
@@ -144,7 +144,7 @@
             },
             de: {
                 title: "Von überall scannen",
-                subtitle: "Dateien werden automatisch in einer verschlüsselten öffentlichen Cloud verarbeitet. Der QR-Code kann von jedem im Internet gescannt werden.",
+                subtitle: "Dateien werden automatisch in einer wissenschaftlich verschlüsselten Cloud verarbeitet. Der QR-Code kann von jedem im Internet gescannt werden.",
                 drag: "Klicken oder Datei hierher ziehen",
                 placeholder: "Der QR-Code wird automatisch angezeigt, sobald eine Datei hochgeladen oder eine URL eingegeben wird.",
                 delete: "Löschen",
@@ -178,7 +178,6 @@
 
         let currentLang = 'id';
         
-        // Batas Ukuran Browser disesuaikan menjadi 400 MB (400 * 1024 * 1024 Byte)
         const MAX_SIZE = 400 * 1024 * 1024; 
         const ALLOWED_EXT = ['jpeg', 'jpg', 'mkv', 'mp3', 'mp4', 'pdf', 'docx', 'pptx', 'xlsx', 'xls', 'zip', 'exe', 'rar', 'ino', 'apk'];
 
@@ -197,6 +196,9 @@
         const linkContainer = document.getElementById('linkContainer');
         const resultLink = document.getElementById('resultLink');
         const txtLinkLabel = document.getElementById('txt-link-label');
+
+        // Timer debounce untuk input URL real-time
+        let urlDebounceTimer = null;
 
         function changeLanguage(lang) {
             currentLang = lang;
@@ -250,3 +252,100 @@
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://tmpfiles.org/api/v1/upload', true);
+
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    progressBar.style.width = percent + '%';
+                    progressPercent.innerText = percent + '%';
+                }
+            };
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.status === "success" && response.data && response.data.url) {
+                            let rawUrl = response.data.url;
+                            let directDownloadUrl = rawUrl.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+                            txtLinkLabel.innerText = i18n[currentLang].linkLabelFile;
+                            generateQR(directDownloadUrl);
+                        } else {
+                            handleError();
+                        }
+                    } catch (err) {
+                        handleError();
+                    }
+                } else {
+                    handleError();
+                }
+            };
+
+            xhr.onerror = function () { handleError(); };
+            xhr.send(formData);
+        }
+
+        // PERBAIKAN: QR Code muncul real-time saat mengetik apapun di kolom URL
+        function handleUrlInput(val) {
+            const cleanUrl = val.trim();
+            
+            // Jika kolom kosong, kembalikan tampilan ke awal
+            if (cleanUrl === "") {
+                resetUpload();
+                return;
+            }
+
+            // Debounce 120ms: QR di-generate setelah jeda ketik singkat,
+            // sehingga terasa real-time tapi tidak berat performanya
+            clearTimeout(urlDebounceTimer);
+            urlDebounceTimer = setTimeout(() => {
+                dropzone.classList.add('pointer-events-none', 'opacity-40');
+                txtLinkLabel.innerText = i18n[currentLang].linkLabelUrl;
+                generateQR(cleanUrl);
+            }, 120);
+        }
+
+        function generateQR(targetString) {
+            uploadProgress.classList.add('hidden');
+            qrPlaceholder.classList.add('hidden');
+            
+            qrContainer.innerHTML = "";
+            qrWrapper.classList.remove('hidden');
+            linkContainer.classList.remove('hidden');
+            
+            resultLink.value = targetString;
+
+            new QRCode(qrContainer, {
+                text: targetString,
+                width: 240,
+                height: 240,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function handleError() {
+            alert(i18n[currentLang].errorUpload);
+            resetUpload();
+        }
+
+        function resetUpload() {
+            fileInput.value = "";
+            urlInput.value = "";
+            fileInfo.classList.add('hidden');
+            uploadProgress.classList.add('hidden');
+            qrContainer.innerHTML = "";
+            qrWrapper.classList.add('hidden');
+            linkContainer.classList.add('hidden');
+            qrPlaceholder.classList.remove('hidden');
+            
+            dropzone.classList.remove('pointer-events-none', 'opacity-40');
+            urlInput.classList.remove('pointer-events-none', 'opacity-40');
+            
+            progressBar.style.width = '0%';
+            progressPercent.innerText = '0%';
+        }
+    </script>
+</body>
+</html>
